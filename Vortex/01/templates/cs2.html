@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Skins CS2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --panel: #1b1b1b;
+      --accent: #00ffb3;
+      --white: #fff;
+      --orange: #ff875f;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, #111, #222);
+      color: var(--white);
+    }
+
+    body::before {
+      content: "";
+      display: block;
+      background-color: var(--orange);
+      height: 10px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .top-link {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .top-link a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      padding: 0 30px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--panel);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,255,179,0.15);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card img {
+      width: 100%;
+      max-height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,255,179,0.2);
+    }
+
+    .card h2 {
+      font-size: 1.2rem;
+      margin: 15px 0 10px;
+    }
+
+    .card p {
+      color: #ccc;
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+    }
+
+    .buy-btn {
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      background: linear-gradient(135deg, #00856f, #00ffb3);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+      box-shadow: 0 4px 12px rgba(0,255,179,0.3);
+      transition: 0.3s ease;
+    }
+
+    .buy-btn:hover {
+      background: linear-gradient(135deg, #005f4d, #00d49d);
+      transform: translateY(-1px);
+
+    .back-btn {
+      font-size: 18px;
+      background: none;
+      border: none;
+      color: var(--gray);
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: color 0.3s ease;
+    }
+
+    .back-btn:hover {
+      color: var(--highlight);
+    }
+    }
+  </style>
+</head>
+<body>
+    <button class="back-btn" onclick="window.history.back()">← Voltar</button>
+  <h1>Skins Disponíveis - CS2</h1>
+
+  <div class="top-link">
+    <a href="{{ url_for('ver_carrinho') }}">🛒 Ver Carrinho</a>
+  </div>
+
+  <div class="grid">
+    {% for produto in produtos.values() %}
+      <div class="card">
+        <img src="{{ url_for('static', filename=produto.imagem) }}" alt="{{ produto.nome }}">
+        <h2>{{ produto.nome }}</h2>
+        <p>R$ {{ "%.2f"|format(produto.preco) }}</p>
+        <a href="{{ url_for('add_carrinho', produto_id=produto.id) }}">
+          <button class="buy-btn">Comprar agora</button>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</body>
+</html>
